@@ -1,0 +1,19 @@
+#AFTER USE
+mvn clean install
+docker build -t loans/calculate-payments .
+docker run -p 8080:8080 loans/calculate-payments
+
+#Postman collection
+aplazo.postman_collection.json
+
+#Health
+localhost:8080/loans/actuator/health
+
+#Calculate payments
+curl --location --request POST 'localhost:8080/loans/calculate-payments' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "amount": 500000,
+    "terms": 6,
+    "rate": 2
+}'
